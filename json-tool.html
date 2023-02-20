@@ -1,0 +1,55 @@
+<script type="text/javascript">
+    RED.nodes.registerType('json-tool',{
+        category: 'function',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+            url: {},
+            exampleText: {value:"msg.data"}
+        },
+        inputs:1,
+        outputs:1,
+        label: function() {
+            return this.name||"json-tool";
+        },
+        oneditprepare : function(){
+            this.editor = RED.editor.createEditor({
+                id: 'node-input-example-editor',
+                mode: 'ace/mode/text',
+                value: this.exampleText
+            });
+        },
+        oneditsave: function() {
+            this.exampleText = this.editor.getValue();
+            this.editor.destroy();
+            delete this.editor;
+        },
+        oneditcancel: function() {
+            this.editor.destroy();
+            delete this.editor;
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="json-tool">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-url"><i class="fa fa-tag"></i> URL</label>
+        <input type="text" id="node-input-url" placeholder="url">
+    </div>
+
+     <p>Fetched JSON data avilable at <b>msg.data</b>.</p>
+     <p> Its a personal Node. Which does only one task. Not for public Use.</p>
+ 
+    <div style="height: 250px; min-height:150px;" class="node-text-editor" id="node-input-example-editor"></div>
+
+</script>
+
+<script type="text/html" data-help-name="json-tool">
+    <p> Its a personal Node. Which does only one task</p>
+    <p>A simple node to download a array and work on it.</p>
+</script>
